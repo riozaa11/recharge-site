@@ -1,0 +1,567 @@
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="PUBG UC, Roblox Robux болон бусад тоглоомын recharge — хурдан, найдвартай." />
+  <title>Game Recharge — PUBG UC / Roblox Robux</title>
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:rgba(18,26,51,.72);
+      --card2:rgba(15,23,48,.55);
+      --text:#e8ecff;
+      --muted:#a8b0d9;
+      --border:rgba(255,255,255,.12);
+      --brand:#7c5cff;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --shadow:0 14px 40px rgba(0,0,0,.40);
+      --r:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(34,197,94,.16), transparent 55%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{
+      position:sticky;top:12px;z-index:10;
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      background:rgba(18,26,51,.75);
+      backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
+    }
+    .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;flex-wrap:wrap}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{
+      width:40px;height:40px;border-radius:14px;
+      background: conic-gradient(from 220deg, var(--brand), var(--ok), #38bdf8, var(--brand));
+      box-shadow: 0 10px 30px rgba(124,92,255,.22);
+      flex:0 0 auto;
+    }
+    .brand h1{margin:0;font-size:15px;letter-spacing:.2px}
+    .brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .btn{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--text);padding:10px 12px;border-radius:14px;
+      cursor:pointer;display:inline-flex;gap:8px;align-items:center;font-weight:650;
+      transition:.15s transform,.15s border-color;
+      user-select:none;text-decoration:none;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.20)}
+    .btn.primary{
+      background:linear-gradient(180deg, rgba(124,92,255,.9), rgba(124,92,255,.65));
+      border-color:rgba(124,92,255,.55);
+    }
+    .btn.ok{
+      background:linear-gradient(180deg, rgba(34,197,94,.95), rgba(34,197,94,.65));
+      border-color:rgba(34,197,94,.55);
+      color:#06210f;
+    }
+
+    main{margin-top:18px}
+    .grid{display:grid;grid-template-columns: 1.2fr .8fr;gap:16px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} header{position:relative;top:0} }
+
+    .card{
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hd{padding:16px 16px 10px;border-bottom:1px solid var(--border);background:var(--card2)}
+    .hd h2{margin:0;font-size:18px;font-weight:850}
+    .hd p{margin:8px 0 0;color:var(--muted);font-size:13px}
+    .bd{padding:16px}
+
+    .pill{
+      font-size:12px;color:var(--muted);
+      border:1px solid var(--border);border-radius:999px;padding:6px 10px;
+      background:rgba(255,255,255,.04);
+      display:inline-flex;gap:6px;align-items:center;white-space:nowrap;
+    }
+
+    .notice{
+      padding:12px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);font-size:13px;
+    }
+    .notice b{color:var(--text)}
+    .divider{height:1px;background:var(--border);margin:14px 0}
+
+    .list{display:grid;grid-template-columns:repeat(2, 1fr);gap:12px;margin-top:12px}
+    @media (max-width: 560px){.list{grid-template-columns:1fr}}
+    .item{
+      padding:14px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.03);
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .item .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .item h3{margin:0;font-size:15px}
+    .price{font-weight:900}
+    .muted{color:var(--muted)}
+    .small{font-size:12px;color:var(--muted)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 560px){.two{grid-template-columns:1fr}}
+
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input, select, textarea{
+      width:100%;
+      padding:11px 12px;border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(124,92,255,.55);
+      box-shadow: 0 0 0 3px rgba(124,92,255,.14);
+    }
+    textarea{min-height:90px;resize:vertical}
+
+    .summary{
+      display:grid;gap:8px;
+      padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+    }
+    .summary .line{display:flex;justify-content:space-between;gap:10px}
+    .summary .line b{font-weight:850}
+    .toast{
+      display:none;margin-top:10px;padding:10px 12px;border:1px solid var(--border);
+      border-radius:14px;color:var(--muted);background:rgba(255,255,255,.04)
+    }
+    .toast.show{display:block}
+    footer{margin:18px 0 6px;color:var(--muted);text-align:center;font-size:12px}
+    .qr{
+      width:100%;
+      max-width:260px;
+      aspect-ratio: 1/1;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      display:grid;place-items:center;
+      overflow:hidden;
+    }
+    .qr img{width:100%;height:100%;object-fit:cover}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Game Recharge</h1>
+            <p>PUBG UC • Roblox Robux • бусад тоглоом</p>
+          </div>
+        
+    </header>
+
+    <main class="grid">
+      <!-- LEFT -->
+      <section class="card" aria-labelledby="hero">
+        <div class="hd">
+          <h2 id="hero">Recharge — хурдан, найдвартай</h2>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <span class="pill">⏱️ Дундаж хугацаа: 5–30 минут</span>
+            <span class="pill">🕘 Ажлын цаг: 10:00–00:00</span>
+          </div>
+        </div>
+
+        <div class="bd">
+          <div class="notice">
+            <b>Анхааруулга:</b> ID/Username-ээ зөв оруулна уу. Буруу мэдээллээс үүдсэн асуудалд хариуцлага хүлээх боломжгүй.
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Game filter -->
+          <div class="two">
+            <div>
+              <label for="catalogGame">Тоглоом сонгох (үнэ харах)</label>
+              <select id="catalogGame"></select>
+            </div>
+            <div class="notice" style="margin:0">
+              <b>Зөвхөн сонгосон тоглоомын</b> багцууд доор харагдана.
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <h3 style="margin:0">Багцууд / Үнэ</h3>
+          </div>
+
+          <div class="list" id="productList"></div>
+
+          <div class="divider"></div>
+
+          <!-- ✅ Холбоо барих (NAV холбоотой) -->
+          <div class="notice" id="contact">
+            <b>Холбоо барих:</b><br/>
+            Facebook: Kimura recharge
+          
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <section class="card" id="order" aria-labelledby="orderTitle">
+        <div class="hd">
+          <h2 id="orderTitle">Захиалга өгөх</h2>
+          <p>Мэдээллээ бөглөөд төлбөрийн аргаа сонгоно уу.</p>
+        </div>
+
+        <div class="bd">
+          <form id="orderForm">
+            <div class="two">
+              <div>
+                <label for="game">Тоглоом</label>
+                <select id="game" required></select>
+              </div>
+              <div>
+                <label for="pack">Багц</label>
+                <select id="pack" required></select>
+              </div>
+            </div>
+
+            <div class="two" style="margin-top:12px">
+              <div>
+                <label for="accountId">ID / Username</label>
+                <input id="accountId" required placeholder="Ж: PUBG Player ID / Roblox username" autocomplete="off" />
+              </div>
+              <div>
+                <label for="phone">Утас</label>
+                <input id="phone" required placeholder="99xxxxxx" inputmode="tel" type="tel" />
+              </div>
+            </div>
+
+            <div class="two" style="margin-top:12px">
+              <div>
+                <label for="email">Имэйл </label>
+                <input id="email" type="email" placeholder="name@gmail.com"  />
+              </div>
+              <div>
+                <label for="payment">Төлбөрийн арга</label>
+                <select id="payment" required>
+                  <option value="qpay">QPay</option>
+                  <option value="bank">Банк шилжүүлэг</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <label for="note">Тэмдэглэл </label>
+              <textarea id="note" placeholder="Нэмэлт хүсэлт / цагийн тохироо гэх мэт"></textarea>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="summary" aria-label="Захиалгын нэгтгэл">
+              <div class="line"><span class="muted">Сонгосон:</span> <b id="sumPack">—</b></div>
+              <div class="line"><span class="muted">Үнэ:</span> <b id="sumPrice">—</b></div>
+              <div class="line"><span class="muted">Төлбөрийн арга:</span> <b id="sumPay">—</b></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="notice" id="payBox"></div>
+
+            <button class="btn ok" type="submit" style="margin-top:12px;width:100%;justify-content:center">
+              ✅ Захиалга илгээх
+            </button>
+
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+            
+
+            <!-- ✅ NEW: Захиалгын төлөв шалгах -->
+            <div class="divider"></div>
+            <div class="notice">
+              <b>Захиалгын төлөв шалгах</b>
+              <div class="two" style="margin-top:10px">
+                <div>
+                  <label for="trackId">Захиалгын дугаар</label>
+                  <input id="trackId" placeholder="Ж: A1B2C3" autocomplete="off" />
+                </div>
+                <div style="align-self:end">
+                  <button class="btn primary" type="button" id="trackBtn" style="width:100%;justify-content:center">
+                    🔎 Шалгах
+                  </button>
+                </div>
+              </div>
+
+              <div style="margin-top:10px">
+                <div class="small muted">Одоогийн төлөв:</div>
+                <div style="font-weight:900" id="trackStatus">—</div>
+              </div>
+              
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>© <span id="year"></span> Game Recharge. All rights reserved.</footer>
+  </div>
+
+  <script>
+    const PRODUCTS = [
+      { game:"PUBG Mobile", sku:"UC-60",   name:"60 UC",   price: 4000 },
+      { game:"PUBG Mobile", sku:"UC-120",  name:"120 UC",  price: 8200 },
+      { game:"PUBG Mobile", sku:"UC-180",  name:"180 UC",  price: 12000 },
+      { game:"PUBG Mobile", sku:"UC-325", name:"325 UC", price: 17200 },
+      { game:"PUBG Mobile", sku:"UC-385",   name:"385 UC",   price: 21000 },
+      { game:"PUBG Mobile", sku:"UC-660",  name:"660 UC",  price: 33500 },
+      { game:"PUBG Mobile", sku:"UC-720",  name:"720 UC",  price: 37000 },
+      { game:"PUBG Mobile", sku:"UC-985", name:"985 UC", price: 49000 },
+      { game:"PUBG Mobile", sku:"UC-1320",   name:"1320 UC",   price: 66500 },
+      { game:"PUBG Mobile", sku:"UC-1800",  name:"1800 UC",  price: 80000},
+      
+
+
+      { game:"Roblox", sku:"RBX-400",  name:"400 Robux",  price: 17000 },
+      { game:"Roblox", sku:"RBX-800",  name:"800 Robux",  price: 32000 },
+      { game:"Roblox", sku:"RBX-1700", name:"1700 Robux", price: 65000 },
+
+      { game:"Free Fire", sku:"FF-530", name:"530 Diamonds", price: 16000 },
+      { game:"Mobile Legends", sku:"ML-257", name:"257 Diamonds", price: 14000 }
+    ];
+
+    const PAYMENT_INFO = {
+      qpay: {
+        title: "QPay төлбөр",
+        qrImageUrl: "https://image2url.com/r2/default/images/1768407754554-267dd986-df67-4017-9fa2-afdbadbcfd3c.png"
+      },
+      bank: {
+        title: "Банк шилжүүлэг",
+        text: "Төрийн банк 106701881125\nНэр:Тэнгис \nГүйлгээний утга: Тоглоом + ID"
+      }
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => new Intl.NumberFormat("mn-MN").format(n);
+    const esc = (s) => String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+    function uniqueGames(){
+      return [...new Set(PRODUCTS.map(p=>p.game))].sort();
+    }
+
+    function rebuildOrderGames(){
+      const games = uniqueGames();
+      $("game").innerHTML = "";
+      games.forEach(g=>{
+        const opt = document.createElement("option");
+        opt.value = g; opt.textContent = g;
+        $("game").appendChild(opt);
+      });
+    }
+
+    function rebuildCatalogGames(){
+      const games = uniqueGames();
+      $("catalogGame").innerHTML = "";
+      games.forEach(g=>{
+        const opt = document.createElement("option");
+        opt.value = g; opt.textContent = g;
+        $("catalogGame").appendChild(opt);
+      });
+    }
+
+    function rebuildPackOptions(){
+      const game = $("game").value;
+      const packs = PRODUCTS.filter(p=>p.game===game).sort((a,b)=>a.price-b.price);
+      $("pack").innerHTML = "";
+      packs.forEach(p=>{
+        const opt = document.createElement("option");
+        opt.value = p.sku;
+        opt.textContent = `${p.name} — ${fmt(p.price)}₮`;
+        opt.dataset.name = p.name;
+        opt.dataset.price = String(p.price);
+        $("pack").appendChild(opt);
+      });
+      updateSummaryAndPay();
+    }
+
+    function renderCatalogList(){
+      const selected = $("catalogGame").value;
+      const packs = PRODUCTS.filter(p=>p.game===selected).sort((a,b)=>a.price-b.price);
+
+      const container = $("productList");
+      container.innerHTML = "";
+      packs.forEach(p=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="row">
+            <h3>${esc(p.game)}</h3>
+            <span class="pill">${esc(p.sku)}</span>
+          </div>
+          <div class="row">
+            <div>
+              <div style="font-weight:800">${esc(p.name)}</div>
+            </div>
+            <div class="price">${fmt(p.price)}₮</div>
+          </div>
+          <button class="btn primary" type="button">Сонгох</button>
+        `;
+        div.querySelector("button").addEventListener("click", ()=>{
+          $("game").value = p.game;
+          rebuildPackOptions();
+          $("pack").value = p.sku;
+          updateSummaryAndPay();
+          document.getElementById("order").scrollIntoView({behavior:"smooth", block:"start"});
+        });
+        container.appendChild(div);
+      });
+    }
+
+    function updateSummaryAndPay(){
+      const packOpt = $("pack").selectedOptions[0];
+      const packName = packOpt?.dataset?.name || "—";
+      const price = Number(packOpt?.dataset?.price || 0);
+      const pay = $("payment").value;
+
+      $("sumPack").textContent = `${$("game").value} • ${packName}`;
+      $("sumPrice").textContent = price ? `${fmt(price)}₮` : "—";
+      $("sumPay").textContent = pay;
+
+      const info = PAYMENT_INFO[pay];
+      if(!info){
+        $("payBox").textContent = "Төлбөрийн мэдээлэл олдсонгүй.";
+        return;
+      }
+
+      if(pay === "qpay"){
+        const qr = info.qrImageUrl;
+        $("payBox").innerHTML = `
+          <b>${esc(info.title)}:</b><br/>
+          <div style="margin-top:12px;display:grid;gap:10px">
+            <div class="qr">
+              ${qr ? `<img alt="QPay QR" src="${esc(qr)}" />` : `<div class="small muted">QR зурагны URL хоосон байна</div>`}
+            </div>
+            <div class="small muted">Төлбөр хийсний дараа гүйлгээний зураг/ID-гаа бидэнд илгээнэ үү.</div>
+          </div>
+        `;
+      } else {
+        $("payBox").innerHTML = `
+          <b>${esc(info.title)}:</b><br/>
+          <pre style="white-space:pre-wrap;margin:10px 0 0;color:var(--muted);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">${esc(info.text || "")}</pre>
+        `;
+      }
+    }
+
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(()=>t.classList.remove("show"), 3800);
+    }
+
+    // ✅ status polling (server.js дээр /api/orders/:id байх ёстой)
+    let trackTimer = null;
+    async function refreshStatus(orderId){
+      const r = await fetch(`/api/orders/${encodeURIComponent(orderId)}`);
+      const data = await r.json();
+      if(!r.ok) throw new Error(data?.error || "Захиалга олдсонгүй");
+      $("trackStatus").textContent = data.status || "—";
+    }
+    function startAutoRefresh(orderId){
+      if(trackTimer) clearInterval(trackTimer);
+      trackTimer = setInterval(()=>refreshStatus(orderId).catch(()=>{}), 4000);
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      $("year").textContent = new Date().getFullYear();
+
+      rebuildOrderGames();
+      rebuildCatalogGames();
+
+      $("game").value = "PUBG Mobile";
+      $("catalogGame").value = "PUBG Mobile";
+
+      rebuildPackOptions();
+      renderCatalogList();
+      updateSummaryAndPay();
+
+      $("catalogGame").addEventListener("change", renderCatalogList);
+
+      $("game").addEventListener("change", ()=>{
+        rebuildPackOptions();
+        $("catalogGame").value = $("game").value;
+        renderCatalogList();
+      });
+
+      $("pack").addEventListener("change", updateSummaryAndPay);
+      $("payment").addEventListener("change", updateSummaryAndPay);
+
+      $("trackBtn").addEventListener("click", async ()=>{
+        const id = $("trackId").value.trim().toUpperCase();
+        if(!id) return toast("❗ Захиалгын дугаараа оруулна уу.");
+        try{
+          await refreshStatus(id);
+          startAutoRefresh(id);
+          toast("✅ Төлөв автоматаар шинэчлэгдэнэ.");
+        }catch(e){
+          toast("❗ " + e.message);
+        }
+      });
+
+      $("orderForm").addEventListener("submit", async (e)=>{
+        e.preventDefault();
+
+        const packOpt = $("pack").selectedOptions[0];
+        const payload = {
+          game: $("game").value,
+          packSku: $("pack").value,
+          packName: packOpt?.dataset?.name || "",
+          price: Number(packOpt?.dataset?.price || 0),
+          accountId: $("accountId").value.trim(),
+          phone: $("phone").value.trim(),
+          email: $("email").value.trim(),
+          payment: $("payment").value,
+          note: $("note").value.trim()
+        };
+
+        if(!payload.accountId || !payload.phone){
+          toast("❗ ID/утсаа бүрэн бөглөнө үү.");
+          return;
+        }
+
+        try{
+          const r = await fetch("/api/orders", {
+            method:"POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(payload)
+          });
+          const data = await r.json();
+          if(!r.ok) throw new Error(data?.error || "Алдаа гарлаа");
+
+          toast(`✅ Захиалга амжилттай. Дугаар: ${data.orderId}`);
+
+          // автоматаар төлөв шалгах талбар руу оруулах
+          $("trackId").value = data.orderId;
+          await refreshStatus(data.orderId);
+          startAutoRefresh(data.orderId);
+
+          $("note").value = "";
+        }catch(err){
+          toast("❗ " + err.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html><!doctype html>
+<html lang="mn">
