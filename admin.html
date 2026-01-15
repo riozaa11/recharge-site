@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — Login</title>
+  <style>
+    body{background:#0b1020;color:#e8ecff;font-family:system-ui;margin:24px}
+    .card{max-width:420px;margin:70px auto;padding:18px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(18,26,51,.72)}
+    input,button,select{width:100%;padding:12px;margin-top:10px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e8ecff}
+    button{cursor:pointer;font-weight:800}
+    .muted{color:#a8b0d9;font-size:13px}
+    .err{color:#fca5a5;margin-top:10px}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.12);text-align:left;font-size:14px}
+    .hide{display:none}
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginCard" class="card">
+    <h3 style="margin:0 0 6px">Admin нэвтрэх</h3>
+  
+    <input id="u" placeholder="Username" autocomplete="username" />
+    <input id="p" type="password" placeholder="Password" autocomplete="current-password" />
+    <button id="loginBtn">Нэвтрэх</button>
+    <div id="err" class="err"></div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="adminArea" class="hide">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+      <h2 style="margin:0">Admin — Захиалгууд</h2>
+      <div>
+        <button id="reloadBtn" style="width:auto">↻ Шинэчлэх</button>
+        <button id="logoutBtn" style="width:auto">Гарах</button>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:1100px">
+      <div class="muted" id="info"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Тоглоом</th>
+            <th>Багц</th>
+            <th>Үнэ</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+  const STATUS=["PENDING","PAID","PROCESSING","DONE","FAILED","CANCELED"];
+  const $=(id)=>document.getElementById(id);
+  const fmt=(n)=>new Intl.NumberFormat("mn-MN").format(n);
+
+  async function api(path, opts={}){
+    const r = await fetch(path, opts);
+    const data = await r.json().catch(()=> ({}));
+    return { ok: r.ok, data };
+  }
+
+  async function checkMe(){
+    const {ok, data} = await api("/api/admin/me");
+    if(ok && data.isAdmin){
+      $("loginCard").classList.add("hide");
+      $("adminArea").classList.remove("hide");
+      await loadOrders();
+    } else {
+      $("adminArea").classList.add("hide");
+      $("loginCard").classList.remove("hide");
+    }
+  }
+
+  async function login(){
+    $("err").textContent = "";
+    const username = $("u").value.trim();
+    const password = $("p").value;
+
+    const {ok, data} = await api("/api/admin/login", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ username, password })
+    });
+
+    if(!ok){
+      $("err").textContent = data.error || "Нэвтрэхэд алдаа гарлаа";
+      return;
+    }
+    await checkMe();
+  }
+
+  async function logout(){
+    await api("/api/admin/logout", { method:"POST" });
+    location.reload();
+  }
+
+  async function loadOrders(){
+    const {ok, data} = await api("/api/admin/orders");
+    if(!ok){
+      $("info").textContent = "❗ Unauthorized (дахин нэвтэрнэ үү)";
+      await checkMe();
+      return;
+    }
+
+    const rows = data.rows || [];
+    $("info").textContent = `Нийт: ${rows.length} захиалга`;
+
+    const tbody = $("rows");
+    tbody.innerHTML = "";
+
+    rows.forEach(o=>{
+      const tr = document.createElement("tr");
+
+      const sel = document.createElement("select");
+      STATUS.forEach(s=>{
+        const op = document.createElement("option");
+        op.value = s;
+        op.textContent = s;
+        if(s === o.status) op.selected = true;
+        sel.appendChild(op);
+      });
+
+      sel.addEventListener("change", async ()=>{
+        const {ok, data} = await api(`/api/admin/orders/${encodeURIComponent(o.orderId)}`, {
+          method:"PATCH",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ status: sel.value })
+        });
+        if(!ok){
+          alert(data.error || "Status update алдаа");
+          await loadOrders();
+        }
+      });
+
+      tr.innerHTML = `
+        <td><b>${o.orderId}</b><div class="muted">${o.phone || ""}</div></td>
+        <td>${o.game || ""}</td>
+        <td>${o.packName || ""}</td>
+        <td><b>${fmt(Number(o.price||0))}₮</b></td>
+        <td></td>
+      `;
+
+      tr.children[4].appendChild(sel);
+      tbody.appendChild(tr);
+    });
+  }
+
+  $("loginBtn").addEventListener("click", login);
+  $("logoutBtn").addEventListener("click", logout);
+  $("reloadBtn").addEventListener("click", loadOrders);
+
+  // enter дарж нэвтрэх
+  $("p").addEventListener("keydown", (e)=>{ if(e.key==="Enter") login(); });
+
+  checkMe();
+</script>
+</body>
+</html>
